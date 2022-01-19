@@ -77,11 +77,18 @@
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
         "type": "dashboard"
       }
     ]
   },
   "editable": true,
+  "fiscalYearStartMonth": 0,
   "gnetId": null,
   "graphTooltip": 1,
   "id": null,
@@ -101,6 +108,8 @@
       "options": {
         "dedupStrategy": "signature",
         "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
         "showLabels": false,
         "showTime": true,
         "sortOrder": "Descending",
@@ -119,13 +128,10 @@
           "refId": "B"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Logs",
       "type": "logs"
     },
     {
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -137,7 +143,6 @@
       "type": "row"
     },
     {
-      "datasource": null,
       "description": "Average uptime of the service in the selected time range",
       "fieldConfig": {
         "defaults": {
@@ -173,6 +178,7 @@
       },
       "id": 53,
       "options": {
+        "orientation": "auto",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -184,7 +190,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "8.0.5",
+      "pluginVersion": "8.3.3",
       "targets": [
         {
           "expr": "avg_over_time(\nmin(ceil(kube_deployment_status_replicas_available{namespace=\"$namespace\",deployment=\"$service\"} \n    / kube_deployment_status_replicas{namespace=\"$namespace\",deployment=\"$service\"}))\n[$__range:1m])",
@@ -199,7 +205,6 @@
       "type": "gauge"
     },
     {
-      "datasource": null,
       "description": "Timeline showing when how many of the desired replicas were healthy",
       "fieldConfig": {
         "defaults": {
@@ -293,7 +298,6 @@
       "type": "state-timeline"
     },
     {
-      "datasource": null,
       "description": "Timeline showing when pod restarts occurred",
       "fieldConfig": {
         "defaults": {
@@ -374,7 +378,6 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -387,7 +390,6 @@
       "type": "row"
     },
     {
-      "datasource": null,
       "description": "Memory usage of the main container (without sidecars)",
       "fieldConfig": {
         "defaults": {
@@ -548,13 +550,10 @@
           "refId": "C"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Memory usage",
       "type": "timeseries"
     },
     {
-      "datasource": null,
       "description": "CPU usage of the main container (without sidecars)",
       "fieldConfig": {
         "defaults": {
@@ -716,14 +715,11 @@
           "refId": "C"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "CPU usage",
       "type": "timeseries"
     },
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -736,7 +732,6 @@
       "type": "row"
     },
     {
-      "datasource": null,
       "description": "Request count by HTTP status code",
       "fieldConfig": {
         "defaults": {
@@ -848,16 +843,11 @@
           "refId": "D"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Status codes",
       "type": "timeseries"
     },
     {
-      "cards": {
-        "cardPadding": null,
-        "cardRound": null
-      },
+      "cards": {},
       "color": {
         "cardColor": "#5794F2",
         "colorScale": "sqrt",
@@ -866,7 +856,6 @@
         "mode": "opacity"
       },
       "dataFormat": "tsbuckets",
-      "datasource": null,
       "description": "Distribution of response times",
       "gridPos": {
         "h": 7,
@@ -893,8 +882,6 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Response times",
       "tooltip": {
         "show": true,
@@ -905,24 +892,15 @@
       "xAxis": {
         "show": true
       },
-      "xBucketNumber": null,
-      "xBucketSize": null,
       "yAxis": {
-        "decimals": null,
         "format": "ms",
         "logBase": 1,
-        "max": null,
-        "min": null,
-        "show": true,
-        "splitFactor": null
+        "show": true
       },
-      "yBucketBound": "upper",
-      "yBucketNumber": null,
-      "yBucketSize": null
+      "yBucketBound": "upper"
     },
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -935,7 +913,6 @@
       "type": "row"
     },
     {
-      "datasource": null,
       "description": "Request count by gRPC method and status code",
       "fieldConfig": {
         "defaults": {
@@ -1020,13 +997,10 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Methods  + status codes",
       "type": "timeseries"
     },
     {
-      "datasource": null,
       "description": "Percentage of gRPC responses with status codes other than OK",
       "fieldConfig": {
         "defaults": {
@@ -1113,14 +1087,11 @@
           "refId": "B"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Error rate",
       "type": "timeseries"
     },
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1133,7 +1104,6 @@
       "type": "row"
     },
     {
-      "datasource": null,
       "description": "Number of active Goroutines or threads in the thread pool",
       "fieldConfig": {
         "defaults": {
@@ -1226,13 +1196,10 @@
           "refId": "B"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Threads",
       "type": "timeseries"
     },
     {
-      "datasource": null,
       "description": "Amount of time spent on garbage collection",
       "fieldConfig": {
         "defaults": {
@@ -1323,14 +1290,12 @@
           "refId": "B"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Garbage collection",
       "type": "timeseries"
     }
   ],
   "refresh": "10s",
-  "schemaVersion": 30,
+  "schemaVersion": 34,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -1341,7 +1306,6 @@
         "datasource": "${DS_PROMETHEUS}",
         "definition": "",
         "description": "Kubernetes namespace to inspect",
-        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "Namespace",
@@ -1367,7 +1331,6 @@
         "datasource": "${DS_PROMETHEUS}",
         "definition": "",
         "description": "Name of service (Deployment, Container, etc.) to inspect",
-        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "Service",
@@ -1403,7 +1366,6 @@
           ]
         },
         "description": "Log levels of messages to show",
-        "error": null,
         "hide": 0,
         "includeAll": true,
         "label": "Log levels",
