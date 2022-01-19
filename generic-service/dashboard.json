@@ -199,6 +199,14 @@
           "interval": "",
           "legendFormat": "",
           "refId": "A"
+        },
+        {
+          "expr": "avg_over_time(\nmin(ceil(kube_statefulset_status_replicas_available{namespace=\"$namespace\",statefulset=\"$service\"} \n    / kube_statefulset_status_replicas{namespace=\"$namespace\",statefulset=\"$service\"}))\n[$__range:1m])",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "B"
         }
       ],
       "title": "Uptime",
@@ -287,6 +295,14 @@
       "targets": [
         {
           "expr": "max(kube_deployment_status_replicas_available{namespace=\"$namespace\",deployment=~\"$service\"} / kube_deployment_status_replicas{namespace=\"$namespace\",deployment=~\"$service\"}) by (deployment)",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "legendFormat": " ",
+          "refId": "A"
+        },
+        {
+          "expr": "max(kube_statefulset_status_replicas_available{namespace=\"$namespace\",statefulset=~\"$service\"} / kube_statefulset_status_replicas{namespace=\"$namespace\",statefulset=~\"$service\"}) by (statefulset)",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -1338,7 +1354,7 @@
         "name": "service",
         "options": [],
         "query": {
-          "query": "label_values(kube_deployment_status_replicas_available{namespace=\"$namespace\"}, deployment)",
+          "query": "label_values(kube_pod_container_info{namespace=\"$namespace\"}, container)",
           "refId": "Prometheus-name-Variable-Query"
         },
         "refresh": 1,
