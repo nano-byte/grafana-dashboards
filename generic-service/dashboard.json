@@ -326,7 +326,7 @@
           },
           "custom": {
             "axisLabel": "",
-            "axisPlacement": "hidden",
+            "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "points",
             "fillOpacity": 0,
@@ -581,7 +581,7 @@
             "mode": "palette-classic"
           },
           "custom": {
-            "axisLabel": "CPU cores",
+            "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
@@ -759,7 +759,7 @@
           },
           "custom": {
             "axisLabel": "Requests per 10 min",
-            "axisPlacement": "auto",
+            "axisPlacement": "hidden",
             "barAlignment": 0,
             "drawStyle": "line",
             "fillOpacity": 10,
@@ -940,7 +940,7 @@
           },
           "custom": {
             "axisLabel": "Requests per 10 min",
-            "axisPlacement": "auto",
+            "axisPlacement": "hidden",
             "barAlignment": 0,
             "drawStyle": "line",
             "fillOpacity": 10,
@@ -1029,7 +1029,7 @@
             "mode": "fixed"
           },
           "custom": {
-            "axisLabel": "Requests per 10 min",
+            "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
@@ -1229,7 +1229,7 @@
           },
           "custom": {
             "axisLabel": "Per 10 min",
-            "axisPlacement": "auto",
+            "axisPlacement": "hidden",
             "barAlignment": 0,
             "drawStyle": "line",
             "fillOpacity": 10,
