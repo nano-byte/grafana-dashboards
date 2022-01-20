@@ -124,7 +124,6 @@
         {
           "expr": "{namespace=\"$namespace\",container=\"$service\",level=\"\"}",
           "hide": false,
-          "legendFormat": "",
           "refId": "B"
         }
       ],
@@ -193,6 +192,7 @@
       "pluginVersion": "8.3.3",
       "targets": [
         {
+          "exemplar": true,
           "expr": "avg_over_time(\nmin(ceil(kube_deployment_status_replicas_available{namespace=\"$namespace\",deployment=\"$service\"} \n    / kube_deployment_status_replicas{namespace=\"$namespace\",deployment=\"$service\"}))\n[$__range:1m])",
           "hide": false,
           "instant": false,
@@ -201,6 +201,7 @@
           "refId": "A"
         },
         {
+          "exemplar": true,
           "expr": "avg_over_time(\nmin(ceil(kube_statefulset_status_replicas_available{namespace=\"$namespace\",statefulset=\"$service\"} \n    / kube_statefulset_status_replicas{namespace=\"$namespace\",statefulset=\"$service\"}))\n[$__range:1m])",
           "hide": false,
           "instant": false,
@@ -294,6 +295,7 @@
       },
       "targets": [
         {
+          "exemplar": true,
           "expr": "max(kube_deployment_status_replicas_available{namespace=\"$namespace\",deployment=~\"$service\"} / kube_deployment_status_replicas{namespace=\"$namespace\",deployment=~\"$service\"}) by (deployment)",
           "hide": false,
           "instant": false,
@@ -302,6 +304,7 @@
           "refId": "A"
         },
         {
+          "exemplar": true,
           "expr": "max(kube_statefulset_status_replicas_available{namespace=\"$namespace\",statefulset=~\"$service\"} / kube_statefulset_status_replicas{namespace=\"$namespace\",statefulset=~\"$service\"}) by (statefulset)",
           "hide": false,
           "instant": false,
@@ -383,6 +386,7 @@
       },
       "targets": [
         {
+          "exemplar": true,
           "expr": "sum(increase(kube_pod_container_status_restarts_total{namespace=\"$namespace\",container=\"$service\"}[10m]))>0",
           "interval": "10m",
           "legendFormat": "",
@@ -1007,6 +1011,7 @@
       "pluginVersion": "8.0.3",
       "targets": [
         {
+          "exemplar": true,
           "expr": "sum(increase(grpc_server_handled_total{namespace=\"$namespace\",app=\"$service\",grpc_service!=\"grpc.health.v1.Health\",grpc_service!=\"grpc.reflection.v1alpha\",grpc_service!=\"/grpc.health.v1\",grpc_service!=\"/grpc.reflection.v1alpha.ServerReflection\"}[10m])) by (grpc_service, grpc_method, grpc_code)",
           "interval": "10m",
           "legendFormat": "{{ grpc_service }}/{{ grpc_method }} :: {{ grpc_code }}",
@@ -1097,6 +1102,7 @@
       "pluginVersion": "8.0.3",
       "targets": [
         {
+          "exemplar": true,
           "expr": "sum(increase(grpc_server_handled_total{namespace=\"$namespace\",app=\"$service\",grpc_code!=\"OK\",grpc_method!=\"Check\",grpc_method!=\"Watch\",grpc_method!=\"ServerReflectionInfo\"}[10m])) / sum(increase(grpc_server_handled_total{namespace=\"$namespace\",app=\"$service\",grpc_method!=\"Check\",grpc_method!=\"Watch\",grpc_method!=\"ServerReflectionInfo\"}[10m]))",
           "interval": "10m",
           "legendFormat": "Error rate",
@@ -1355,7 +1361,7 @@
         "options": [],
         "query": {
           "query": "label_values(kube_pod_container_info{namespace=\"$namespace\"}, container)",
-          "refId": "Prometheus-name-Variable-Query"
+          "refId": "StandardVariableQuery"
         },
         "refresh": 1,
         "regex": "",
