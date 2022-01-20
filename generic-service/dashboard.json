@@ -92,7 +92,7 @@
   "gnetId": null,
   "graphTooltip": 1,
   "id": null,
-  "iteration": 1642615062777,
+  "iteration": 1642670053217,
   "links": [],
   "panels": [
     {
@@ -1468,5 +1468,5 @@
   "title": "Generic Service",
   "description": "Simplifies monitoring services on Kubernetes. Shows container logs, availability, resource usage and HTTP and gRPC traffic.",
   "uid": "qqsCbY5Zz",
-  "version": 2
+  "version": 3
 }
