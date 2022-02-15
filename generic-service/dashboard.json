@@ -1017,7 +1017,7 @@
           "refId": "A"
         }
       ],
-      "title": "Methods  + status codes",
+      "title": "Methods + status codes",
       "type": "timeseries"
     },
     {
@@ -1105,7 +1105,7 @@
           "expr": "sum(increase(grpc_server_handled_total{namespace=\"$namespace\",app=\"$service\",grpc_code!=\"OK\",grpc_method!=\"Check\",grpc_method!=\"Watch\",grpc_method!=\"ServerReflectionInfo\"}[10m])) / sum(increase(grpc_server_handled_total{namespace=\"$namespace\",app=\"$service\",grpc_method!=\"Check\",grpc_method!=\"Watch\",grpc_method!=\"ServerReflectionInfo\"}[10m]))",
           "interval": "10m",
           "legendFormat": "Error rate",
-          "refId": "B"
+          "refId": "A"
         }
       ],
       "title": "Error rate",
