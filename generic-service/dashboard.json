@@ -850,7 +850,7 @@
       "reverseYBuckets": false,
       "targets": [
         {
-          "expr": "sum(rate(istio_request_duration_milliseconds_bucket{destination_service_namespace=\"$namespace\",destination_service_name=\"$service\",reporter=\"source\"}[$__rate_interval])) by (le)",
+          "expr": "sum(increase(istio_request_duration_milliseconds_bucket{destination_service_namespace=\"$namespace\",destination_service_name=\"$service\",reporter=\"source\"}[$__rate_interval])) by (le)",
           "format": "heatmap",
           "legendFormat": "{{le}}",
           "refId": "A"
