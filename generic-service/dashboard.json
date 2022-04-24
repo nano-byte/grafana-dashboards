@@ -298,13 +298,13 @@
       "targets": [
         {
           "datasource": "${DS_PROMETHEUS}",
-          "expr": "max(\n  kube_deployment_status_replicas_available{namespace=\"$namespace\",deployment=~\"$service\"} /\n  kube_deployment_status_replicas{namespace=\"$namespace\",deployment=~\"$service\"}\n) by (deployment)",
+          "expr": "max(\n  kube_deployment_status_replicas_available{namespace=\"$namespace\",deployment=\"$service\"} /\n  kube_deployment_status_replicas{namespace=\"$namespace\",deployment=\"$service\"}\n) by (deployment)",
           "legendFormat": " ",
           "refId": "A"
         },
         {
           "datasource": "${DS_PROMETHEUS}",
-          "expr": "max(\n  kube_statefulset_status_replicas_available{namespace=\"$namespace\",statefulset=~\"$service\"} /\n  kube_statefulset_status_replicas{namespace=\"$namespace\",statefulset=~\"$service\"}\n) by (statefulset)",
+          "expr": "max(\n  kube_statefulset_status_replicas_available{namespace=\"$namespace\",statefulset=\"$service\"} /\n  kube_statefulset_status_replicas{namespace=\"$namespace\",statefulset=\"$service\"}\n) by (statefulset)",
           "legendFormat": " ",
           "refId": "B"
         }
