@@ -309,7 +309,7 @@
         },
         {
           "datasource": "${DS_PROMETHEUS}",
-          "expr": "avg_over_time(\n  min(ceil(\n    kube_statefulset_status_replicas_available{namespace=\"$namespace\",statefulset=\"$service\"} /\n    kube_statefulset_status_replicas{namespace=\"$namespace\",statefulset=\"$service\"}\n  ))\n[$__range:1m])",
+          "expr": "avg_over_time(\n  min(ceil(\n    kube_statefulset_status_replicas_ready{namespace=\"$namespace\",statefulset=\"$service\"} /\n    kube_statefulset_status_replicas{namespace=\"$namespace\",statefulset=\"$service\"}\n  ))\n[$__range:1m])",
           "refId": "B"
         }
       ],
@@ -409,7 +409,7 @@
         },
         {
           "datasource": "${DS_PROMETHEUS}",
-          "expr": "max(\n  kube_statefulset_status_replicas_available{namespace=\"$namespace\",statefulset=\"$service\"} /\n  kube_statefulset_status_replicas{namespace=\"$namespace\",statefulset=\"$service\"}\n) by (statefulset)",
+          "expr": "max(\n  kube_statefulset_status_replicas_ready{namespace=\"$namespace\",statefulset=\"$service\"} /\n  kube_statefulset_status_replicas{namespace=\"$namespace\",statefulset=\"$service\"}\n) by (statefulset)",
           "legendFormat": " ",
           "refId": "B"
         }
