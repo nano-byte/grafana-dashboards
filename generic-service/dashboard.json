@@ -300,7 +300,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "8.5.0",
+      "pluginVersion": "8.4.6",
       "targets": [
         {
           "datasource": "${DS_PROMETHEUS}",
@@ -1441,18 +1441,17 @@
     }
   ],
   "refresh": "10s",
-  "schemaVersion": 36,
+  "schemaVersion": 35,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": [
       {
-        "current": {},
         "datasource": {
           "type": "prometheus",
           "uid": "${DS_PROMETHEUS}"
         },
-        "definition": "",
+        "definition": "label_values(kube_pod_info, namespace)",
         "description": "Kubernetes namespace to inspect",
         "hide": 0,
         "includeAll": false,
@@ -1479,7 +1478,7 @@
           "type": "prometheus",
           "uid": "${DS_PROMETHEUS}"
         },
-        "definition": "",
+        "definition": "label_values(kube_pod_container_info{namespace=\"$namespace\"}, container)",
         "description": "Name of service (Deployment, Container, etc.) to inspect",
         "hide": 0,
         "includeAll": false,
