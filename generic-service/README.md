@@ -5,7 +5,6 @@ This Grafana dashboard simplifies monitoring typical "80% case" services on Kube
 - [Logs](#logs)
 - [Availability and Resources](#availability-and-resources)
 - [HTTP and gRPC traffic](#traffic)
-- [Go and .NET process metrics](#process-metrics)
 
 ![Screenshot](./screenshot.png)
 
@@ -47,18 +46,9 @@ It also shows the containers' memory and CPU usage, along with requests and limi
 
 ## Traffic
 
-The dashboard assumes you are using [Istio](https://istio.io/) to route HTTP traffic to your containers. In order for traffic to be visualized you need to use `VirtualService`s with names matching your `Deployment`s.
+The dashboard assumes you are using [NGINX Ingress Controller](https://kubernetes.github.io/ingress-nginx/) or [Istio](https://istio.io/) to route HTTP traffic to your containers. In order for traffic to be visualized you need to use `Ingress`es or `VirtualService`s with names matching your `Deployment`s.
 
 If you use gRPC and want more detailed information to show up on the dashboard you can provide the necessary metrics by using one of these libraries:
 
 - [go-grpc-prometheus](https://github.com/grpc-ecosystem/go-grpc-prometheus) for Go
 - [Nexogen.Libraries.Metrics.Grpc](https://github.com/nexogen-international/Nexogen.Libraries.Metrics#grpc) for .NET
-
-## Process metrics
-
-The dashboard assumes you are exposing process metrics using:
-
-- [Prometheus Go client library](https://github.com/prometheus/client_golang) for Go
-- [Nexogen.Libraries.Metrics](https://github.com/nexogen-international/Nexogen.Libraries.Metrics) for .NET
-
-It shows the number of active Goroutines or threads in the thread pool and the amount of time spent on garbage collection.
