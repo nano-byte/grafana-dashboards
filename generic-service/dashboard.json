@@ -1169,6 +1169,16 @@
           "expr": "label_replace(\n  sum(\n    rate(grpc_server_requests_total{namespace=\"$namespace\",app=\"$service\"}[$__rate_interval])\n  ) by (grpc_service, grpc_method, grpc_code),\n  \"grpc_service\", \"$1\", \"grpc_service\", \"${grpc_prefix}(.*)\"\n) != 0",
           "legendFormat": "{{grpc_service}}/{{grpc_method}}: {{grpc_code}}",
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "exemplar": true,
+          "expr": "label_replace(\n  sum(\n    rate(grpc_server_handled_total{namespace=\"$namespace\",app=\"$service\"}[$__rate_interval])\n  ) by (grpc_service, grpc_method, grpc_code),\n  \"grpc_service\", \"$1\", \"grpc_service\", \"${grpc_prefix}(.*)\"\n) != 0",
+          "legendFormat": "{{grpc_service}}/{{grpc_method}}: {{grpc_code}}",
+          "refId": "B"
         }
       ],
       "title": "Methods + status codes",
@@ -1234,6 +1244,17 @@
           "interval": "10m",
           "legendFormat": "__auto",
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "exemplar": true,
+          "expr": "sum(increase(grpc_server_handled_total{namespace=\"$namespace\",app=\"$service\",grpc_code!=\"OK\"}[10m])) by (grpc_code)",
+          "interval": "10m",
+          "legendFormat": "__auto",
+          "refId": "B"
         }
       ],
       "thresholds": [],
