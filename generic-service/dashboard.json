@@ -864,7 +864,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": false,
-          "expr": "min(kube_pod_container_resource_requests{resource=\"cpu\",namespace=\"$namespace\",pod=~\"$service-.*\"})",
+          "expr": "min(kube_pod_container_resource_requests{resource=\"cpu\",namespace=\"$namespace\",container=\"$service\"})",
           "legendFormat": "Request",
           "refId": "B"
         },
@@ -874,7 +874,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": false,
-          "expr": "min(kube_pod_container_resource_limits{resource=\"cpu\",namespace=\"$namespace\",pod=~\"$service-.*\"})",
+          "expr": "min(kube_pod_container_resource_limits{resource=\"cpu\",namespace=\"$namespace\",container=\"$service\"})",
           "legendFormat": "Limit",
           "refId": "C"
         }
