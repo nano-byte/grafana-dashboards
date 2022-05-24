@@ -117,7 +117,7 @@
       },
       "id": 36,
       "options": {
-        "dedupStrategy": "exact",
+        "dedupStrategy": "numbers",
         "enableLogDetails": true,
         "prettifyLogMessage": false,
         "showCommonLabels": false,
