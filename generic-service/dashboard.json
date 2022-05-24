@@ -1378,7 +1378,7 @@
         "type": "query"
       },
       {
-        "allValue": "",
+        "allValue": ".*",
         "current": {
           "selected": true,
           "text": [
@@ -1392,53 +1392,24 @@
             "warn"
           ]
         },
-        "description": "Log levels of messages to show",
+        "datasource": {
+          "type": "loki",
+          "uid": "${DS_LOKI}"
+        },
+        "definition": "label_values({namespace=\"$namespace\", container=\"$service\"}, level)",
+        "description": "Log level of messages to show",
         "hide": 0,
         "includeAll": true,
-        "label": "Log levels",
+        "label": "Log level",
         "multi": true,
         "name": "loglevel",
-        "options": [
-          {
-            "selected": false,
-            "text": "All",
-            "value": "$__all"
-          },
-          {
-            "selected": false,
-            "text": "trace",
-            "value": "trace"
-          },
-          {
-            "selected": false,
-            "text": "debug",
-            "value": "debug"
-          },
-          {
-            "selected": false,
-            "text": "info",
-            "value": "info"
-          },
-          {
-            "selected": true,
-            "text": "warn",
-            "value": "warn"
-          },
-          {
-            "selected": true,
-            "text": "error",
-            "value": "error"
-          },
-          {
-            "selected": true,
-            "text": "fatal",
-            "value": "fatal"
-          }
-        ],
-        "query": "trace,debug,info,warn,error,fatal",
-        "queryValue": "",
+        "options": [],
+        "query": "label_values({namespace=\"$namespace\", container=\"$service\"}, level)",
+        "refresh": 2,
+        "regex": "",
         "skipUrlSync": false,
-        "type": "custom"
+        "sort": 0,
+        "type": "query"
       }
     ]
   },
