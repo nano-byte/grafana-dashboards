@@ -128,14 +128,12 @@
       },
       "targets": [
         {
-          "datasource": "${DS_PROMETHEUS}",
-          "expr": "{namespace=\"$namespace\",container=\"$service\",level=~\"$loglevel\"}",
+          "datasource": {
+            "type": "loki",
+            "uid": "${DS_LOKI}"
+          },
+          "expr": "{namespace=\"$namespace\", container=\"$service\", level=~\"$loglevel\"}",
           "refId": "A"
-        },
-        {
-          "datasource": "${DS_PROMETHEUS}",
-          "expr": "{namespace=\"$namespace\",container=\"$service\",level=\"\"}",
-          "refId": "B"
         }
       ],
       "title": "Logs",
