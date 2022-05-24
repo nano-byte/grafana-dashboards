@@ -941,8 +941,10 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
+          "exemplar": false,
           "expr": "sum(increase(istio_request_duration_milliseconds_bucket{destination_service_namespace=\"$namespace\",destination_service_name=\"$service\",reporter=\"source\"}[$__rate_interval])) by (le)",
-          "hide": false,
+          "format": "heatmap",
+          "legendFormat": "{{le}}",
           "refId": "B"
         }
       ],
@@ -1059,6 +1061,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
+          "exemplar": false,
           "expr": "sum(rate(istio_requests_total{destination_service_namespace=\"$namespace\",destination_service_name=\"$service\",reporter=\"source\"}[$__rate_interval])) by (response_code)",
           "hide": false,
           "refId": "B"
