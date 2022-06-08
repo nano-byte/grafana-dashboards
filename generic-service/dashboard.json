@@ -1052,8 +1052,8 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": false,
-          "expr": "sum(rate(nginx_ingress_controller_requests{exported_namespace=\"$namespace\",exported_service=\"$service\"}[$__rate_interval])) by (status)",
-          "legendFormat": "__auto",
+          "expr": "sum(rate(nginx_ingress_controller_requests{exported_namespace=\"$namespace\",exported_service=\"$service\"}[$__rate_interval])) by (method, status)",
+          "legendFormat": "{{method}}: {{status}}",
           "refId": "A"
         },
         {
