@@ -505,9 +505,9 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": false,
-          "expr": "label_replace(\n  max (kube_pod_container_info{namespace=\"$namespace\",container=\"$service\"}) by (image),\n  \"version\", \"$1\", \"image\", \".*:(.*)\"\n)",
+          "expr": "max(label_replace(kube_pod_container_info{namespace=\"$namespace\",container=\"$service\"}, \"version\", \"$1\", \"image\", \".*:(.*)\")) by (version)",
           "interval": "",
-          "legendFormat": "{{version}}",
+          "legendFormat": "__auto",
           "refId": "A"
         }
       ],
