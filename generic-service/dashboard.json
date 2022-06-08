@@ -1212,11 +1212,11 @@
         "current": false,
         "hideEmpty": true,
         "hideZero": true,
-        "max": true,
+        "max": false,
         "min": false,
         "rightSide": true,
         "show": true,
-        "total": false,
+        "total": true,
         "values": true
       },
       "lines": false,
