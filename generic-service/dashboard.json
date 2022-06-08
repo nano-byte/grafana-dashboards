@@ -1167,7 +1167,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "label_replace(\n  sum(\n    rate(grpc_server_requests_total{namespace=\"$namespace\",app=\"$service\"}[$__rate_interval])\n  ) by (grpc_service, grpc_method, grpc_code),\n  \"grpc_service\", \"$1\", \"grpc_service\", \"${grpc_prefix}(.*)\"\n) != 0",
+          "expr": "label_replace(\n  sum(\n    rate(grpc_server_requests_total{namespace=\"$namespace\",release=\"$service\"}[$__rate_interval])\n  ) by (grpc_service, grpc_method, grpc_code),\n  \"grpc_service\", \"$1\", \"grpc_service\", \"${grpc_prefix}(.*)\"\n) != 0",
           "legendFormat": "{{grpc_service}}/{{grpc_method}}: {{grpc_code}}",
           "refId": "A"
         },
@@ -1177,7 +1177,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "label_replace(\n  sum(\n    rate(grpc_server_handled_total{namespace=\"$namespace\",app=\"$service\"}[$__rate_interval])\n  ) by (grpc_service, grpc_method, grpc_code),\n  \"grpc_service\", \"$1\", \"grpc_service\", \"${grpc_prefix}(.*)\"\n) != 0",
+          "expr": "label_replace(\n  sum(\n    rate(grpc_server_handled_total{namespace=\"$namespace\",release=\"$service\"}[$__rate_interval])\n  ) by (grpc_service, grpc_method, grpc_code),\n  \"grpc_service\", \"$1\", \"grpc_service\", \"${grpc_prefix}(.*)\"\n) != 0",
           "legendFormat": "{{grpc_service}}/{{grpc_method}}: {{grpc_code}}",
           "refId": "B"
         }
@@ -1241,7 +1241,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "sum(increase(grpc_server_requests_total{namespace=\"$namespace\",app=\"$service\",grpc_code!=\"OK\"}[10m])) by (grpc_code)",
+          "expr": "sum(increase(grpc_server_requests_total{namespace=\"$namespace\",release=\"$service\",grpc_code!=\"OK\"}[10m])) by (grpc_code)",
           "interval": "10m",
           "legendFormat": "__auto",
           "refId": "A"
@@ -1252,7 +1252,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "sum(increase(grpc_server_handled_total{namespace=\"$namespace\",app=\"$service\",grpc_code!=\"OK\"}[10m])) by (grpc_code)",
+          "expr": "sum(increase(grpc_server_handled_total{namespace=\"$namespace\",release=\"$service\",grpc_code!=\"OK\"}[10m])) by (grpc_code)",
           "interval": "10m",
           "legendFormat": "__auto",
           "refId": "B"
@@ -1360,7 +1360,7 @@
           "type": "prometheus",
           "uid": "${DS_PROMETHEUS}"
         },
-        "definition": "label_values(grpc_server_requests_total{namespace=\"$namespace\",app=\"$service\"}, grpc_service)",
+        "definition": "label_values(grpc_server_requests_total{namespace=\"$namespace\",release=\"$service\"}, grpc_service)",
         "description": "Prefix for gRPC service names (i.e., the package name with a trailing dot)",
         "hide": 0,
         "includeAll": false,
@@ -1369,7 +1369,7 @@
         "name": "grpc_prefix",
         "options": [],
         "query": {
-          "query": "label_values(grpc_server_requests_total{namespace=\"$namespace\",app=\"$service\"}, grpc_service)",
+          "query": "label_values(grpc_server_requests_total{namespace=\"$namespace\",release=\"$service\"}, grpc_service)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
