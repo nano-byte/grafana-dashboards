@@ -895,36 +895,68 @@
       "type": "row"
     },
     {
-      "cards": {},
-      "color": {
-        "cardColor": "#5794F2",
-        "colorScale": "sqrt",
-        "colorScheme": "interpolateSpectral",
-        "exponent": 0.5,
-        "mode": "opacity"
-      },
-      "dataFormat": "tsbuckets",
       "datasource": {
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
       "description": "Distribution of response times as measured by ingress controller",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "scaleDistribution": {
+              "type": "linear"
+            }
+          }
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 6,
         "w": 13,
         "x": 0,
         "y": 22
       },
-      "heatmap": {},
-      "hideZeroBuckets": true,
-      "highlightCards": true,
       "id": 97,
-      "interval": "",
-      "legend": {
-        "show": false
-      },
       "maxDataPoints": 20,
-      "reverseYBuckets": false,
+      "options": {
+        "calculate": false,
+        "cellGap": 1,
+        "color": {
+          "exponent": 0.5,
+          "fill": "green",
+          "mode": "opacity",
+          "scale": "exponential",
+          "scheme": "Greens",
+          "steps": 64
+        },
+        "exemplars": {
+          "color": "rgba(255,0,255,0.5)"
+        },
+        "filterValues": {
+          "le": 1e-9
+        },
+        "legend": {
+          "show": false
+        },
+        "rowsFrame": {
+          "layout": "auto"
+        },
+        "tooltip": {
+          "show": true,
+          "yHistogram": false
+        },
+        "yAxis": {
+          "axisPlacement": "left",
+          "reverse": false,
+          "unit": "ms"
+        }
+      },
+      "pluginVersion": "9.0.5",
       "targets": [
         {
           "datasource": {
@@ -939,21 +971,7 @@
         }
       ],
       "title": "Response times",
-      "tooltip": {
-        "show": true,
-        "showHistogram": false
-      },
-      "tooltipDecimals": 0,
-      "type": "heatmap",
-      "xAxis": {
-        "show": true
-      },
-      "yAxis": {
-        "format": "ms",
-        "logBase": 1,
-        "show": true
-      },
-      "yBucketBound": "upper"
+      "type": "heatmap-new"
     },
     {
       "datasource": {
