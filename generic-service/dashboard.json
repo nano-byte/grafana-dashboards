@@ -207,16 +207,8 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "avg_over_time(\n  min(ceil(\n    kube_deployment_status_replicas_available{namespace=\"$namespace\",deployment=\"$service\"} /\n    kube_deployment_status_replicas{namespace=\"$namespace\",deployment=\"$service\"}\n  ))\n[$__range:1m])",
+          "expr": "avg_over_time(\n  min(ceil(\n    kube_deployment_status_replicas_available{namespace=\"$namespace\",deployment=\"$service\"} /\n    kube_deployment_status_replicas{namespace=\"$namespace\",deployment=\"$service\"}\n  ))\n[$__range:1m]) or\navg_over_time(\n  min(ceil(\n    kube_statefulset_status_replicas_ready{namespace=\"$namespace\",statefulset=\"$service\"} /\n    kube_statefulset_status_replicas{namespace=\"$namespace\",statefulset=\"$service\"}\n  ))\n[$__range:1m])",
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "expr": "avg_over_time(\n  min(ceil(\n    kube_statefulset_status_replicas_ready{namespace=\"$namespace\",statefulset=\"$service\"} /\n    kube_statefulset_status_replicas{namespace=\"$namespace\",statefulset=\"$service\"}\n  ))\n[$__range:1m])",
-          "refId": "B"
         }
       ],
       "title": "Uptime",
@@ -310,19 +302,9 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": false,
-          "expr": "max(\n  kube_deployment_status_replicas_available{namespace=\"$namespace\",deployment=\"$service\"} /\n  kube_deployment_status_replicas{namespace=\"$namespace\",deployment=\"$service\"}\n) by (deployment)",
+          "expr": "max(\n  kube_deployment_status_replicas_available{namespace=\"$namespace\",deployment=\"$service\"} /\n  kube_deployment_status_replicas{namespace=\"$namespace\",deployment=\"$service\"}\n) by (deployment) or\nmax(\n  kube_statefulset_status_replicas_ready{namespace=\"$namespace\",statefulset=\"$service\"} /\n  kube_statefulset_status_replicas{namespace=\"$namespace\",statefulset=\"$service\"}\n) by (statefulset)",
           "legendFormat": " ",
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "exemplar": false,
-          "expr": "max(\n  kube_statefulset_status_replicas_ready{namespace=\"$namespace\",statefulset=\"$service\"} /\n  kube_statefulset_status_replicas{namespace=\"$namespace\",statefulset=\"$service\"}\n) by (statefulset)",
-          "legendFormat": " ",
-          "refId": "B"
         }
       ],
       "title": "Replicas healthy",
@@ -931,21 +913,10 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": false,
-          "expr": "sum(increase(nginx_ingress_controller_response_duration_seconds_bucket{exported_namespace=\"$namespace\",exported_service=\"$service\"}[$__rate_interval])) by (le)",
+          "expr": "sum(increase(nginx_ingress_controller_response_duration_seconds_bucket{exported_namespace=\"$namespace\",exported_service=\"$service\"}[$__rate_interval])) by (le) or\nsum(increase(istio_request_duration_milliseconds_bucket{destination_service_namespace=\"$namespace\",destination_service_name=\"$service\",reporter=\"source\"}[$__rate_interval])) by (le)",
           "format": "heatmap",
           "legendFormat": "{{le}}",
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "exemplar": false,
-          "expr": "sum(increase(istio_request_duration_milliseconds_bucket{destination_service_namespace=\"$namespace\",destination_service_name=\"$service\",reporter=\"source\"}[$__rate_interval])) by (le)",
-          "format": "heatmap",
-          "legendFormat": "{{le}}",
-          "refId": "B"
         }
       ],
       "title": "Response times",
@@ -1052,19 +1023,9 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": false,
-          "expr": "sum(rate(nginx_ingress_controller_requests{exported_namespace=\"$namespace\",exported_service=\"$service\"}[$__rate_interval])) by (method, status)",
-          "legendFormat": "{{method}}: {{status}}",
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "exemplar": false,
-          "expr": "sum(rate(istio_requests_total{destination_service_namespace=\"$namespace\",destination_service_name=\"$service\",reporter=\"source\"}[$__rate_interval])) by (response_code)",
+          "expr": "sum(rate(nginx_ingress_controller_requests{exported_namespace=\"$namespace\",exported_service=\"$service\"}[$__rate_interval])) by (method, status) or\nsum(rate(istio_requests_total{destination_service_namespace=\"$namespace\",destination_service_name=\"$service\",reporter=\"source\"}[$__rate_interval])) by (response_code)",
           "hide": false,
-          "refId": "B"
+          "refId": "A"
         }
       ],
       "title": "Status codes",
@@ -1167,19 +1128,9 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "label_replace(\n  sum(\n    rate(grpc_server_requests_total{namespace=\"$namespace\",release=\"$service\"}[$__rate_interval])\n  ) by (grpc_service, grpc_method, grpc_code),\n  \"grpc_service\", \"$1\", \"grpc_service\", \"${grpc_prefix}(.*)\"\n) != 0",
+          "expr": "label_replace(\n  sum(\n    rate(grpc_server_requests_total{namespace=\"$namespace\",release=\"$service\"}[$__rate_interval])\n  ) by (grpc_service, grpc_method, grpc_code),\n  \"grpc_service\", \"$1\", \"grpc_service\", \"${grpc_prefix}(.*)\"\n) != 0 or\nlabel_replace(\n  sum(\n    rate(grpc_server_handled_total{namespace=\"$namespace\",release=\"$service\"}[$__rate_interval])\n  ) by (grpc_service, grpc_method, grpc_code),\n  \"grpc_service\", \"$1\", \"grpc_service\", \"${grpc_prefix}(.*)\"\n) != 0",
           "legendFormat": "{{grpc_service}}/{{grpc_method}}: {{grpc_code}}",
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "exemplar": true,
-          "expr": "label_replace(\n  sum(\n    rate(grpc_server_handled_total{namespace=\"$namespace\",release=\"$service\"}[$__rate_interval])\n  ) by (grpc_service, grpc_method, grpc_code),\n  \"grpc_service\", \"$1\", \"grpc_service\", \"${grpc_prefix}(.*)\"\n) != 0",
-          "legendFormat": "{{grpc_service}}/{{grpc_method}}: {{grpc_code}}",
-          "refId": "B"
         }
       ],
       "title": "Methods + status codes",
@@ -1241,21 +1192,10 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "sum(increase(grpc_server_requests_total{namespace=\"$namespace\",release=\"$service\",grpc_code!=\"OK\"}[10m])) by (grpc_code)",
+          "expr": "sum(increase(grpc_server_requests_total{namespace=\"$namespace\",release=\"$service\",grpc_code!=\"OK\"}[10m])) by (grpc_code) or\nsum(increase(grpc_server_handled_total{namespace=\"$namespace\",release=\"$service\",grpc_code!=\"OK\"}[10m])) by (grpc_code)",
           "interval": "10m",
           "legendFormat": "__auto",
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "exemplar": true,
-          "expr": "sum(increase(grpc_server_handled_total{namespace=\"$namespace\",release=\"$service\",grpc_code!=\"OK\"}[10m])) by (grpc_code)",
-          "interval": "10m",
-          "legendFormat": "__auto",
-          "refId": "B"
         }
       ],
       "thresholds": [],
