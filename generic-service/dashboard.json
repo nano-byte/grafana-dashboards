@@ -94,6 +94,25 @@
           "type": "dashboard"
         },
         "type": "dashboard"
+      },
+      {
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
+        "enable": true,
+        "expr": "",
+        "hide": true,
+        "iconColor": "purple",
+        "name": "Deployments",
+        "target": {
+          "refId": "Anno",
+          "tags": [
+            "$namespace",
+            "$service"
+          ],
+          "type": "tags"
+        }
       }
     ]
   },
