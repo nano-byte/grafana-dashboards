@@ -674,8 +674,8 @@
           "showLegend": true
         },
         "tooltip": {
-          "mode": "single",
-          "sort": "none"
+          "mode": "multi",
+          "sort": "desc"
         }
       },
       "pluginVersion": "8.0.3",
@@ -688,7 +688,7 @@
           "exemplar": false,
           "expr": "max by(pod) (container_memory_working_set_bytes{namespace=\"$namespace\",container=\"$service\"}) != 0",
           "format": "time_series",
-          "legendFormat": "__auto",
+          "legendFormat": "{{pod}}",
           "refId": "A"
         },
         {
@@ -853,8 +853,8 @@
           "showLegend": true
         },
         "tooltip": {
-          "mode": "single",
-          "sort": "none"
+          "mode": "multi",
+          "sort": "desc"
         }
       },
       "pluginVersion": "8.0.3",
@@ -867,7 +867,7 @@
           "exemplar": false,
           "expr": "max by(pod) (rate(container_cpu_usage_seconds_total{namespace=\"$namespace\",container=\"$service\"}[$__rate_interval])) != 0",
           "format": "time_series",
-          "legendFormat": "__auto",
+          "legendFormat": "{{pod}}",
           "refId": "A"
         },
         {
@@ -1065,8 +1065,8 @@
           "showLegend": true
         },
         "tooltip": {
-          "mode": "single",
-          "sort": "none"
+          "mode": "multi",
+          "sort": "desc"
         }
       },
       "pluginVersion": "8.0.3",
@@ -1173,8 +1173,8 @@
           "showLegend": true
         },
         "tooltip": {
-          "mode": "single",
-          "sort": "none"
+          "mode": "multi",
+          "sort": "desc"
         }
       },
       "pluginVersion": "8.0.3",
