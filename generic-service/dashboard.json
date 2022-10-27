@@ -1185,7 +1185,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
-          "expr": "label_replace(\n  sum by(grpc_service, grpc_method, grpc_code) (\n    rate(grpc_server_requests_total{namespace=\"$namespace\",release=\"$service\"}[$__rate_interval])\n  ),\n  \"grpc_service\", \"$1\", \"grpc_service\", \"${grpc_prefix}(.*)\"\n) != 0 or\nlabel_replace(\n  sum by(grpc_service, grpc_method, grpc_code) (\n    rate(grpc_server_handled_total{namespace=\"$namespace\",release=\"$service\"}[$__rate_interval])\n  ),\n  \"grpc_service\", \"$1\", \"grpc_service\", \"${grpc_prefix}(.*)\"\n) != 0",
+          "expr": "label_replace(\n  sum by(grpc_service, grpc_method, grpc_code) (\n    rate(grpc_server_requests_total{namespace=\"$namespace\",release=\"$service\"}[$__rate_interval])\n  ),\n  \"grpc_service\", \"$1\", \"grpc_service\", \"${grpc_package}(.*)\"\n) != 0 or\nlabel_replace(\n  sum by(grpc_service, grpc_method, grpc_code) (\n    rate(grpc_server_handled_total{namespace=\"$namespace\",release=\"$service\"}[$__rate_interval])\n  ),\n  \"grpc_service\", \"$1\", \"grpc_service\", \"${grpc_package}(.*)\"\n) != 0",
           "legendFormat": "{{grpc_service}}/{{grpc_method}}: {{grpc_code}}",
           "refId": "A"
         }
@@ -1358,19 +1358,19 @@
           "uid": "${DS_PROMETHEUS}"
         },
         "definition": "label_values(grpc_server_requests_total{namespace=\"$namespace\",release=\"$service\"}, grpc_service)",
-        "description": "Prefix for gRPC service names (i.e., the package name with a trailing dot)",
-        "hide": 0,
+        "description": "The gRPC package name with a trailing dot (used to trim output for better readability)",
+        "hide": 2,
         "includeAll": false,
-        "label": "gRPC Prefix",
+        "label": "gRPC Package",
         "multi": false,
-        "name": "grpc_prefix",
+        "name": "grpc_package",
         "options": [],
         "query": {
           "query": "label_values(grpc_server_requests_total{namespace=\"$namespace\",release=\"$service\"}, grpc_service)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
-        "regex": "/([a-z\\._]+).*/",
+        "regex": "/([a-z0-9\\._]+\\.).*/",
         "skipUrlSync": false,
         "sort": 0,
         "type": "query"
