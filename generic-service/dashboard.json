@@ -17,7 +17,7 @@
       "pluginName": "Prometheus"
     }
   ],
-  "__elements": [],
+  "__elements": {},
   "__requires": [
     {
       "type": "panel",
@@ -29,13 +29,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "9.2.2"
-    },
-    {
-      "type": "panel",
-      "id": "graph",
-      "name": "Graph (old)",
-      "version": ""
+      "version": "9.3.1"
     },
     {
       "type": "panel",
@@ -121,7 +115,6 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
   "id": null,
-  "iteration": 1666856340512,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -171,7 +164,10 @@
       "type": "row"
     },
     {
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "description": "Average uptime of the service in the selected time range",
       "fieldConfig": {
         "defaults": {
@@ -219,7 +215,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "9.2.2",
+      "pluginVersion": "9.3.1",
       "targets": [
         {
           "datasource": {
@@ -234,7 +230,10 @@
       "type": "gauge"
     },
     {
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "description": "Timeline showing when how many of the desired replicas were healthy",
       "fieldConfig": {
         "defaults": {
@@ -331,8 +330,11 @@
       "type": "state-timeline"
     },
     {
-      "datasource": "${DS_PROMETHEUS}",
-      "description": "Timeline showing when pod restarts occurred",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "description": "Timeline showing when container restarts occurred",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -418,7 +420,10 @@
       "type": "timeseries"
     },
     {
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "description": "Running versions (Docker image tags) over time.",
       "fieldConfig": {
         "defaults": {
@@ -536,7 +541,10 @@
       "type": "row"
     },
     {
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "description": "Memory usage of the main container (without sidecars)",
       "fieldConfig": {
         "defaults": {
@@ -716,7 +724,10 @@
       "type": "timeseries"
     },
     {
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "description": "CPU usage of the main container (without sidecars)",
       "fieldConfig": {
         "defaults": {
@@ -970,7 +981,7 @@
           "unit": "ms"
         }
       },
-      "pluginVersion": "9.2.2",
+      "pluginVersion": "9.3.1",
       "targets": [
         {
           "datasource": {
@@ -1099,7 +1110,10 @@
       "type": "row"
     },
     {
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "description": "Request count by gRPC method and status code",
       "fieldConfig": {
         "defaults": {
