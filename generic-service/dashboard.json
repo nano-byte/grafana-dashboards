@@ -1184,7 +1184,9 @@
           ],
           "displayMode": "table",
           "placement": "right",
-          "showLegend": true
+          "showLegend": true,
+          "sortBy": "Max",
+          "sortDesc": true
         },
         "tooltip": {
           "mode": "multi",
@@ -1198,7 +1200,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "exemplar": true,
+          "exemplar": false,
           "expr": "label_replace(\n  sum by(grpc_service, grpc_method, grpc_code) (\n    rate(grpc_server_requests_total{namespace=\"$namespace\",release=\"$service\"}[$__rate_interval])\n  ),\n  \"grpc_service\", \"$1\", \"grpc_service\", \"${grpc_package}(.*)\"\n) != 0 or\nlabel_replace(\n  sum by(grpc_service, grpc_method, grpc_code) (\n    rate(grpc_server_handled_total{namespace=\"$namespace\",release=\"$service\"}[$__rate_interval])\n  ),\n  \"grpc_service\", \"$1\", \"grpc_service\", \"${grpc_package}(.*)\"\n) != 0",
           "legendFormat": "{{grpc_service}}/{{grpc_method}}: {{grpc_code}}",
           "refId": "A"
@@ -1208,101 +1210,103 @@
       "type": "timeseries"
     },
     {
-      "aliasColors": {},
-      "bars": true,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": {
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
-      "decimals": 0,
       "description": "Number of gRPC responses with status codes other than OK",
-      "fill": 1,
-      "fillGradient": 0,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "Errors / 10 minutes",
+            "axisPlacement": "auto",
+            "barAlignment": -1,
+            "drawStyle": "bars",
+            "fillOpacity": 100,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 0,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 6,
         "w": 11,
         "x": 13,
         "y": 29
       },
-      "hiddenSeries": false,
       "id": 91,
       "interval": "10m",
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": false,
-        "hideEmpty": true,
-        "hideZero": true,
-        "max": false,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": true,
-        "values": true
-      },
-      "lines": false,
-      "linewidth": 1,
-      "nullPointMode": "null",
       "options": {
-        "alertThreshold": true
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
       },
-      "percentage": false,
-      "pluginVersion": "9.2.2",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": true,
-      "steppedLine": false,
+      "pluginVersion": "9.2.3",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "exemplar": true,
-          "expr": "sum by(grpc_code) (increase(grpc_server_requests_total{namespace=\"$namespace\",release=\"$service\",grpc_code!=\"OK\"}[10m])) or\nsum by(grpc_code) (increase(grpc_server_handled_total{namespace=\"$namespace\",release=\"$service\",grpc_code!=\"OK\"}[10m]))",
+          "exemplar": false,
+          "expr": "sum by(grpc_code) (increase(grpc_server_requests_total{namespace=\"$namespace\",release=\"$service\",grpc_code!=\"OK\"}[10m])) != 0 or\nsum by(grpc_code) (increase(grpc_server_handled_total{namespace=\"$namespace\",release=\"$service\",grpc_code!=\"OK\"}[10m])) != 0",
           "legendFormat": "__auto",
           "refId": "A"
         }
       ],
-      "thresholds": [],
-      "timeRegions": [],
       "title": "Error count",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:71",
-          "decimals": 0,
-          "format": "short",
-          "label": "Errors / 10 minutes",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        },
-        {
-          "$$hashKey": "object:72",
-          "format": "short",
-          "logBase": 1,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
+      "type": "timeseries"
     }
   ],
   "refresh": "10s",
