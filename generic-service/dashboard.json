@@ -876,7 +876,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": false,
-          "expr": "max by(pod) (rate(container_cpu_usage_seconds_total{namespace=\"$namespace\",container=\"$service\"}[$__rate_interval])) != 0",
+          "expr": "(sum by (pod) (increase(container_cpu_cfs_throttled_periods_total{namespace=\"$namespace\",container=\"$service\"}[$__rate_interval])) > bool 0)\n* min by(pod) (kube_pod_container_resource_limits{resource=\"cpu\",namespace=\"$namespace\",container=\"$service\"}) != 0\nor\nmax by(pod) (rate(container_cpu_usage_seconds_total{namespace=\"$namespace\",container=\"$service\"}[$__rate_interval])) != 0",
           "format": "time_series",
           "legendFormat": "{{pod}}",
           "refId": "A"
