@@ -412,7 +412,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": false,
-          "expr": "sum(rate(kube_pod_container_status_restarts_total{namespace=\"$namespace\",container=\"$service\"}[$__rate_interval]))>0",
+          "expr": "clamp_max(increase(kube_pod_container_status_restarts_total{namespace=\"$namespace\",container=\"$service\"}[$__rate_interval]) > 0, 1)",
           "refId": "A"
         }
       ],
